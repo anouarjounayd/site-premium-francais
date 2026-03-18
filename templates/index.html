@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pack Français Premium</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <section class="hero shell">
+        <div>
+            <span class="eyebrow">Apprentissage du français</span>
+            <h1>Un site plus professionnel, plus clair, et prêt pour une vraie vente PayPal.</h1>
+            <p class="lead">Découvre un extrait gratuit du pack puis passe au pack premium complet avec paiement PayPal sécurisé.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="{{ url_for('premium') }}">Voir le pack premium</a>
+                <a class="btn btn-secondary" href="#preview">Voir l’aperçu gratuit</a>
+            </div>
+        </div>
+        <div class="card stats-card">
+            <h3>Ce que contient le pack</h3>
+            <ul>
+                <li>Expressions utiles</li>
+                <li>Traduction arabe</li>
+                <li>Exemples en français</li>
+                <li>Correspondance anglaise</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="shell" id="preview">
+        <div class="section-head">
+            <h2>Extrait gratuit</h2>
+            <p>Un aperçu propre pour rassurer le visiteur avant l’achat.</p>
+        </div>
+
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Expression (FR)</th>
+                        <th>Arabic</th>
+                        <th>Exemple (FR)</th>
+                        <th>English</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in free_rows %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                        <td>{{ row[4] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% if paypal_ready %}
+    <script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency={{ product.currency }}&intent=capture"></script>
+    {% endif %}
+</head>
+<body>
+    <section class="shell premium-grid">
+        <div>
+            <span class="eyebrow">Pack premium</span>
+            <h1>{{ product.name }}</h1>
+            <p class="lead">Paiement PayPal intégré côté serveur pour un parcours d’achat plus sérieux et plus sécurisé.</p>
+
+            <div class="price-box">
+                <div>
+                    <strong>{{ product.price }} {{ product.currency }}</strong>
+                    <span>Téléchargement immédiat après paiement validé</span>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Expression (FR)</th>
+                            <th>Arabic</th>
+                            <th>Exemple (FR)</th>
+                            <th>English</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in preview_rows %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr class="locked-row">
+                            <td>...</td>
+                            <td>Contenu verrouillé</td>
+                            <td>محتوى مدفوع</td>
+                            <td>Paiement requis pour débloquer le fichier complet</td>
+                            <td>locked content</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <aside class="checkout-card">
+            <h2>Finaliser l’achat</h2>
+            <p>Le paiement est créé et capturé via ton serveur Flask.</p>
+
+            {% if paypal_ready %}
+            <div id="paypal-button-container"></div>
+            <p id="payment-message" class="helper"></p>
+            {% else %}
+            <div class="alert">PayPal n’est pas encore configuré dans le fichier .env.</div>
+            {% endif %}
+
+            <a class="btn btn-secondary full" href="{{ url_for('index') }}">Retour à l’accueil</a>
+        </aside>
+    </section>
+
+    {% if paypal_ready %}
+    <script>
+        const messageEl = document.getElementById('payment-message');
+
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                shape: 'rect',
+                label: 'paypal'
+            },
+            createOrder: async () => {
+                const response = await fetch('/api/paypal/create-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await response.json();
+                if (!response.ok || !data.id) {
+                    throw new Error(data.error || 'Impossible de créer la commande PayPal.');
+                }
+                return data.id;
+            },
+            onApprove: async (data) => {
+                const response = await fetch('/api/paypal/capture-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ orderID: data.orderID })
+                });
+                const result = await response.json();
+                if (!response.ok || result.status !== 'COMPLETED') {
+                    throw new Error(result.error || 'Le paiement n\'a pas pu être validé.');
+                }
+                window.location.href = result.redirect_url;
+            },
+            onCancel: () => {
+                window.location.href = '{{ url_for("cancel") }}';
+            },
+            onError: (err) => {
+                console.error(err);
+                messageEl.textContent = 'Une erreur est survenue pendant le paiement.';
+            }
+        }).render('#paypal-button-container');
+    </script>
+    {% endif %}
+</body>
+</html>

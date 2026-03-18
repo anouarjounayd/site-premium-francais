@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement réussi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <section class="shell center-page">
+        <div class="result-card success-card">
+            <h1>Paiement confirmé</h1>
+            <p>Merci pour votre achat. Votre accès au fichier premium est maintenant activé pour cette session.</p>
+            <a class="btn btn-primary" href="{{ download_url }}">Télécharger le fichier</a>
+            <a class="btn btn-secondary" href="{{ url_for('premium') }}">Retour au pack</a>
+        </div>
+    </section>
+</body>
+</html>

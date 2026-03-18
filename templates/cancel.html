@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement non finalisé</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <section class="shell center-page">
+        <div class="result-card cancel-card">
+            <h1>Paiement non finalisé</h1>
+            <p>{{ message }}</p>
+            <a class="btn btn-primary" href="{{ url_for('premium') }}">Réessayer le paiement</a>
+            <a class="btn btn-secondary" href="{{ url_for('index') }}">Retour à l’accueil</a>
+        </div>
+    </section>
+</body>
+</html>
