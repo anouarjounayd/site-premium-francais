@@ -1,7 +1,16 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, abort, send_from_directory, url_for
+from flask import (
+    Flask,
+    render_template,
+    request,
+    abort,
+    send_from_directory,
+    url_for,
+    session,
+    redirect,
+)
 
 load_dotenv()
 
@@ -58,7 +67,10 @@ def premium():
 
 @app.route("/success")
 def success():
-    download_url = url_for("download_file", token=DOWNLOAD_TOKEN)
+    if not session.get("paid"):
+        return redirect(url_for("cancel"))
+
+    download_url = url_for("download_file")
     return render_template("success.html", download_url=download_url, site=SITE, product=PRODUCT)
 
 
@@ -69,9 +81,7 @@ def cancel():
 
 @app.route("/download")
 def download_file():
-    token = request.args.get("token")
-
-    if token != DOWNLOAD_TOKEN:
+    if not session.get("paid"):
         abort(403)
 
     file_path = PRIVATE_FILES_DIR / PRODUCT["filename"]
@@ -80,6 +90,24 @@ def download_file():
         abort(404)
 
     return send_from_directory(PRIVATE_FILES_DIR, PRODUCT["filename"], as_attachment=True)
+
+
+# TEMPORAIRE UNIQUEMENT POUR TEST LOCAL
+# Supprime cette route quand tu passeras à PayPal API.
+@app.route("/test-unlock")
+def test_unlock():
+    session["paid"] = True
+    return redirect(url_for("success"))
+
+
+@app.errorhandler(403)
+def forbidden(_error):
+    return render_template("cancel.html", site=SITE, product=PRODUCT), 403
+
+
+@app.errorhandler(404)
+def not_found(_error):
+    return render_template("cancel.html", site=SITE, product=PRODUCT), 404
 
 
 if __name__ == "__main__":
