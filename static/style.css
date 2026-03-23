@@ -294,7 +294,7 @@ tbody tr:nth-child(even) {
         text-align: center;
     }
     .hero-img {
-    width: 100%;
+    width: 110%;
     max-height: 320px;
     object-fit: cover;
     border-radius: 16px;
