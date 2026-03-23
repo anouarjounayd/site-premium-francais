@@ -3,61 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pack Français Premium</title>
+    <title>Français Complet</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <section class="hero shell">
-        <div>
-            <span class="eyebrow">Apprentissage du français</span>
-            <h1>Un site plus professionnel, plus clair, et prêt pour une vraie vente PayPal.</h1>
-            <p class="lead">Découvre un extrait gratuit du pack puis passe au pack premium complet avec paiement PayPal sécurisé.</p>
-            <div class="hero-actions">
-                <a class="btn btn-primary" href="{{ url_for('premium') }}">Voir le pack premium</a>
-                <a class="btn btn-secondary" href="#preview">Voir l’aperçu gratuit</a>
+
+    <div class="container">
+        <section class="hero">
+            <div class="hero-text">
+                <span class="badge">Apprentissage du français</span>
+                <h1>Français Complet</h1>
+                <p class="subtitle">Tout ce dont tu as besoin pour apprendre le français facilement</p>
+                <p class="intro">
+                    Commence gratuitement avec 10 expressions essentielles,
+                    puis découvre le pack complet en PDF pour progresser plus vite
+                    avec du contenu clair, utile et professionnel.
+                </p>
+                <a class="btn" href="{{ url_for('premium') }}">Voir le pack complet</a>
             </div>
-        </div>
-        <div class="card stats-card">
-            <h3>Ce que contient le pack</h3>
-            <ul>
-                <li>Expressions utiles</li>
-                <li>Traduction arabe</li>
-                <li>Exemples en français</li>
-                <li>Correspondance anglaise</li>
-            </ul>
-        </div>
-    </section>
 
-    <section class="shell" id="preview">
-        <div class="section-head">
-            <h2>Extrait gratuit</h2>
-            <p>Un aperçu propre pour rassurer le visiteur avant l’achat.</p>
-        </div>
+            <div class="hero-visual">
+                <div class="visual-card">
+                    <div class="visual-circle"></div>
+                    <div class="visual-content">
+                        <h3>Pack complet PDF</h3>
+                        <p>Vocabulaire • Expressions • Traductions • Exemples utiles</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <div class="table-card">
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Expression (FR)</th>
-                        <th>Arabic</th>
-                        <th>Exemple (FR)</th>
-                        <th>English</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in free_rows %}
-                    <tr>
-                        <td>{{ row[0] }}</td>
-                        <td>{{ row[1] }}</td>
-                        <td>{{ row[2] }}</td>
-                        <td>{{ row[3] }}</td>
-                        <td>{{ row[4] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </section>
+        <section class="section-header">
+            <h2>10 expressions gratuites pour commencer</h2>
+            <p>Un aperçu simple, utile et essentiel.</p>
+        </section>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Expression (FR)</th>
+                    <th>Arabic</th>
+                    <th>Exemple (FR)</th>
+                    <th>English</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in free_rows %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <section class="cta-box">
+            <h3>Prêt à aller plus loin ?</h3>
+            <p>
+                Télécharge le <strong>Pack Complet Français</strong> pour seulement
+                <strong>6.99 EUR</strong>.
+            </p>
+            <a class="btn" href="{{ url_for('premium') }}">Accéder au pack complet</a>
+        </section>
+    </div>
+
 </body>
 </html>
