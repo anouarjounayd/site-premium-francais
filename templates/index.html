@@ -8,68 +8,86 @@
 </head>
 <body>
 
-    <div class="container">
-        <section class="hero">
-            <div class="hero-text">
-                <span class="badge">Apprentissage du français</span>
-                <h1>Français Complet</h1>
-                <p class="subtitle">Tout ce dont tu as besoin pour apprendre le français facilement</p>
-                <p class="intro">
-                    Commence gratuitement avec 10 expressions essentielles,
-                    puis découvre le pack complet en PDF pour progresser plus vite
-                    avec du contenu clair, utile et professionnel.
-                </p>
-                <a class="btn" href="{{ url_for('premium') }}">Voir le pack complet</a>
-            </div>
+<div class="container">
 
-            <div class="hero-visual">
-                <div class="visual-card">
-                    <div class="visual-circle"></div>
-                    <div class="visual-content">
-                        <h3>Pack complet PDF</h3>
-                        <p>Vocabulaire • Expressions • Traductions • Exemples utiles</p>
-                    </div>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-text">
+            <span class="badge">Apprentissage du français</span>
+
+            <h1>Français Complet</h1>
+
+            <p class="subtitle">
+                Tout ce dont tu as besoin pour apprendre le français facilement
+            </p>
+
+            <p class="intro">
+                Commence gratuitement avec 10 expressions essentielles,
+                puis découvre le pack complet en PDF pour progresser plus vite
+                avec du contenu clair, utile et professionnel.
+            </p>
+
+            <a class="btn" href="{{ url_for('premium') }}">
+                Voir le pack complet
+            </a>
+        </div>
+
+        <div class="hero-visual">
+            <div class="visual-card">
+                <div class="visual-circle"></div>
+                <div class="visual-content">
+                    <h3>Pack complet PDF</h3>
+                    <p>Vocabulaire • Expressions • Traductions • Exemples</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="section-header">
-            <h2>10 expressions gratuites pour commencer</h2>
-            <p>Un aperçu simple, utile et essentiel.</p>
-        </section>
+    <!-- SECTION GRATUITE -->
+    <section class="section-header">
+        <h2>10 expressions gratuites pour commencer</h2>
+        <p>Un aperçu simple, utile et essentiel.</p>
+    </section>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Expression (FR)</th>
-                    <th>Arabic</th>
-                    <th>Exemple (FR)</th>
-                    <th>English</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in free_rows %}
-                <tr>
-                    <td>{{ row[0] }}</td>
-                    <td>{{ row[1] }}</td>
-                    <td>{{ row[2] }}</td>
-                    <td>{{ row[3] }}</td>
-                    <td>{{ row[4] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Expression (FR)</th>
+                <th>Arabic</th>
+                <th>Exemple (FR)</th>
+                <th>English</th>
+            </tr>
+        </thead>
+        <tbody>
 
-        <section class="cta-box">
-            <h3>Prêt à aller plus loin ?</h3>
-            <p>
-                Télécharge le <strong>Pack Complet Français</strong> pour seulement
-                <strong>6.99 EUR</strong>.
-            </p>
-            <a class="btn" href="{{ url_for('premium') }}">Accéder au pack complet</a>
-        </section>
+            <tr><td>1</td><td>Bonjour</td><td>مرحبا</td><td>Bonjour, comment allez-vous ?</td><td>hello</td></tr>
+            <tr><td>2</td><td>Merci</td><td>شكرا</td><td>Merci pour votre aide.</td><td>thank you</td></tr>
+            <tr><td>3</td><td>Au revoir</td><td>إلى اللقاء</td><td>Au revoir et à bientôt.</td><td>goodbye</td></tr>
+            <tr><td>4</td><td>S’il vous plaît</td><td>من فضلك</td><td>Un café, s’il vous plaît.</td><td>please</td></tr>
+            <tr><td>5</td><td>Excusez-moi</td><td>عذرا</td><td>Excusez-moi, où est la gare ?</td><td>excuse me</td></tr>
+            <tr><td>6</td><td>Oui</td><td>نعم</td><td>Oui, je comprends.</td><td>yes</td></tr>
+            <tr><td>7</td><td>Non</td><td>لا</td><td>Non, ce n’est pas correct.</td><td>no</td></tr>
+            <tr><td>8</td><td>Comment ça va ?</td><td>كيف حالك؟</td><td>Bonjour, comment ça va ?</td><td>how are you?</td></tr>
+            <tr><td>9</td><td>Très bien</td><td>بخير جدا</td><td>Je vais très bien aujourd’hui.</td><td>very well</td></tr>
+            <tr><td>10</td><td>À bientôt</td><td>أراك قريبا</td><td>Merci et à bientôt.</td><td>see you soon</td></tr>
+
+        </tbody>
+    </table>
+
+    <!-- CTA -->
+    <div class="cta-box">
+        <h3>Prêt à aller plus loin ?</h3>
+        <p>
+            Accède au pack complet pour seulement <strong>6,99 €</strong>
+        </p>
+
+        <a class="btn" href="{{ url_for('premium') }}">
+            Accéder au pack complet
+        </a>
     </div>
+
+</div>
 
 </body>
 </html>
